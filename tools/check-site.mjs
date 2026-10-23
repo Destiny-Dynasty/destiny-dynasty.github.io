@@ -30,7 +30,7 @@ async function walk(path) {
 }
 
 const feedPath = resolve(root, 'news.json');
-const feed = JSON.parse(await readFile(resolve(root, 'tools/news-reference.json'), 'utf8'));
+const feed = JSON.parse(await readFile(feedPath, 'utf8'));
 assert.equal(feed.schemaVersion, 1);
 assert(Array.isArray(feed.items));
 const ids = new Set();

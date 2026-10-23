@@ -27,7 +27,7 @@ function safeHttpsUrl(value) {
 
 async function loadNews() {
   try {
-    const response = await fetch('https://destiny-dynasty.github.io/Launcher-News/news.json', { cache: 'no-cache', signal: AbortSignal.timeout(8000) });
+    const response = await fetch('news.json', { cache: 'no-cache', signal: AbortSignal.timeout(8000) });
     if (!response.ok) throw new Error('Feed no disponible');
     const feed = await response.json();
     if (feed.schemaVersion !== 1 || !Array.isArray(feed.items)) throw new Error('Feed inválido');

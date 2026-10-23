@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "launcher-2026-10",
+      "caption": "Nuevo launcher: una nueva puerta a Destiny Dynasty.",
+      "imageUrl": "images/nuevo-launcher-v1.jpg",
+      "linkUrl": "https://destiny-dynasty.github.io/novedades/nuevo-launcher/",
+      "enabled": true
+    },
+    {
+      "id": "nuevo-comienzo-2026-10",
+      "caption": "Próximo reinicio de mundo y nivel. Conservaremos estructuras y objetos compatibles.",
+      "imageUrl": "images/nuevo-comienzo-v1.jpg",
+      "linkUrl": "https://destiny-dynasty.github.io/novedades/nuevo-comienzo/",
+      "enabled": true
+    },
+    {
+      "id": "rpg-desarrollo-2026-10",
+      "caption": "Un nuevo RPG en desarrollo: misiones, habilidades y una aventura más profunda.",
+      "imageUrl": "images/rpg-en-desarrollo-v1.jpg",
+      "linkUrl": "https://destiny-dynasty.github.io/novedades/rpg-en-desarrollo/",
+      "enabled": true
+    }
+  ]
+}

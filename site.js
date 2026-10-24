@@ -27,18 +27,18 @@ function safeHttpsUrl(value) {
 
 async function loadNews() {
   try {
-    const response = await fetch('news.json', { cache: 'no-cache', signal: AbortSignal.timeout(8000) });
+    const response = await fetch('/news.json', { cache: 'no-cache', signal: AbortSignal.timeout(8000) });
     if (!response.ok) throw new Error('Feed no disponible');
     const feed = await response.json();
     if (feed.schemaVersion !== 1 || !Array.isArray(feed.items)) throw new Error('Feed inválido');
     const grid = document.getElementById('news-grid');
     const existing = [...grid.children];
     const cards = feed.items.filter(item => item && typeof item === 'object' && item.enabled !== false).slice(0, 8).map(item => {
-      const image = safeHttpsUrl(new URL(item.imageUrl, response.url).href);
+      const image = safeHttpsUrl(new URL(item.webImageUrl || item.imageUrl, response.url).href);
       if (!image || typeof item.caption !== 'string' || !item.caption.trim()) return null;
       const link = safeHttpsUrl(item.linkUrl);
       // Reutiliza los títulos editoriales, respetando orden y retirada del feed.
-      const original = link && existing.find(node => node.href === link && node.querySelector('img')?.src === image);
+      const original = link && existing.find(node => new URL(node.href).pathname === new URL(link).pathname && node.querySelector('img')?.src === image);
       if (original) { original.querySelector('p').textContent = item.caption.slice(0, 90); return original; }
       const card = document.createElement(link ? 'a' : 'article');
       card.className = 'news-card';
@@ -60,23 +60,4 @@ async function loadNews() {
   }
 }
 
-async function loadLauncherRelease() {
-  try {
-    const response = await fetch('https://api.github.com/repos/Destiny-Dynasty/Destiny-Launcher/releases/latest', { signal: AbortSignal.timeout(8000) });
-    if (!response.ok) return;
-    const release = await response.json();
-    if (release.draft || release.prerelease || !Array.isArray(release.assets)) return;
-    const asset = release.assets.find(item => /\.exe$/i.test(item.name) && /setup|installer|instalador/i.test(item.name));
-    if (!asset) return;
-    const url = safeHttpsUrl(asset.browser_download_url);
-    if (!url || new URL(url).hostname !== 'github.com' || !new URL(url).pathname.startsWith('/Destiny-Dynasty/Destiny-Launcher/releases/download/')) return;
-    const link = document.getElementById('launcher-download');
-    link.href = url; link.textContent = 'Descargar launcher para Windows ↗';
-    document.getElementById('release-status').textContent = `Versión ${String(release.tag_name).slice(0, 40)} · Windows x64`;
-    link.closest('.step').querySelector('p').textContent = 'Descarga el instalador oficial para Windows. Destiny Launcher prepara Minecraft, Fabric y los archivos del modpack.';
-    const faq = [...document.querySelectorAll('details')].find(item => item.querySelector('summary').textContent.includes('descargar el nuevo launcher'));
-    if (faq) faq.querySelector('p').textContent = 'Sí. Encontrarás el instalador oficial para Windows en el paso 02 de esta página. La descarga procede de las publicaciones oficiales de Destiny Launcher en GitHub.';
-  } catch { /* Conserva el estado de preparación y el enlace a publicaciones. */ }
-}
-loadNews();
-loadLauncherRelease();
+if (document.getElementById('news-grid')) loadNews();

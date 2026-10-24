@@ -11,3 +11,6 @@ La captura `launcher-interfaz-v1.png` se obtiene del renderer WPF del proyecto c
 ## Recursos de la web
 
 `reino-destiny.jpg` y `destiny-emblem.png` reutilizan la ilustración y el emblema existentes del proyecto Destiny Launcher (`Assets/experiment/server-background.jpg` y `Assets/experiment/obsidian-gold-v1/destiny-emblem.png`). La ilustración de portada es arte de ambientación; no se presenta como una captura del servidor. No se generaron imágenes nuevas para esta primera versión de la web.
+
+## Rediseño de la web
+`portal-destiny.webp` y `valle-destiny.webp` son ilustraciones generadas con imagegen para el rediseño basado en la referencia facilitada por el equipo. Se utilizan como ambientación y portadas conceptuales, no como capturas del servidor. Los PNG originales se conservan en la biblioteca local de imágenes generadas; las copias web se convierten a WebP.

@@ -41,6 +41,7 @@ for (const item of feed.items) {
   assert(item.enabled === undefined || typeof item.enabled === 'boolean', `enabled inválido: ${item.id}`);
   assert(typeof item.imageUrl === 'string' && item.imageUrl.trim(), `Imagen ausente: ${item.id}`);
   await checkReference(item.imageUrl, feedPath);
+  if (item.webImageUrl) await checkReference(item.webImageUrl, feedPath);
   if (!item.imageUrl.startsWith('https:')) assert((await stat(resolve(root, item.imageUrl))).size <= 4 * 1024 * 1024, `Imagen mayor de 4 MiB: ${item.id}`);
   if (item.linkUrl) await checkReference(item.linkUrl, feedPath);
 }
